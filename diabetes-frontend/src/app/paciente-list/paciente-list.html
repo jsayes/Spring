@@ -1,0 +1,41 @@
+<div class="container">
+  <h2>Lista de Pacientes Diabéticos</h2>
+
+  <app-paciente-form [paciente]="selectedPaciente" (pacienteSaved)="onPacienteSaved()"></app-paciente-form>
+
+  <table class="pacientes-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Acciones</th>
+        <th>Historial</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let paciente of pacientes">
+        <td>{{ paciente.id }}</td>
+        <td>{{ paciente.nombre }}</td>
+        <td>{{ paciente.apellido }}</td>
+        <td>
+          <button class="edit-button" (click)="editPaciente(paciente)">Editar</button>
+          <button class="delete-button" (click)="deletePaciente(paciente.id)">Eliminar</button>
+        </td>
+        <td>
+          <button class="history-button" (click)="showHistorico(paciente)">Ver Historial</button>
+        </td>
+      </tr>
+      <tr *ngIf="pacientes.length === 0">
+        <td colspan="5" style="text-align: center;">No hay pacientes registrados.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-historico-azucar
+    *ngIf="selectedPacienteForHistorico"
+    [paciente]="selectedPacienteForHistorico"
+    (registroAdded)="loadPacientes()"
+    (registroDeleted)="loadPacientes()">
+  </app-historico-azucar>
+</div>

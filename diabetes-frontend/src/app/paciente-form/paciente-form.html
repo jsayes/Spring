@@ -1,0 +1,15 @@
+<div class="form-container">
+  <h3>{{ isEditMode ? 'Editar Paciente' : 'Agregar Nuevo Paciente' }}</h3>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" [(ngModel)]="currentPaciente.nombre" name="nombre" required>
+    </div>
+    <div class="form-group">
+      <label for="apellido">Apellido:</label>
+      <input type="text" id="apellido" [(ngModel)]="currentPaciente.apellido" name="apellido" required>
+    </div>
+    <button type="submit">{{ isEditMode ? 'Actualizar' : 'Guardar' }}</button>
+    <button type="button" *ngIf="isEditMode" (click)="resetForm()">Cancelar</button>
+  </form>
+</div>
