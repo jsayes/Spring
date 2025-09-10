@@ -16,6 +16,7 @@ export interface RegistroAzucar {
   fechaRegistro?: string; // ISO 8601 string
   pacienteId?: number; // Para asociar al paciente al agregar un registro
   comentario?: string;
+  fechaToma?: string;
 }
 
 @Injectable({
@@ -52,8 +53,8 @@ export class PacienteService {
     return this.http.get<RegistroAzucar[]>(`${this.baseUrl}/registros-azucar/paciente/${pacienteId}`);
   }
 
-  addRegistroAzucar(pacienteId: number, valorAzucar: number, comentario: string=''): Observable<RegistroAzucar> {
-    const registro: RegistroAzucar = { valorAzucar: valorAzucar, comentario: comentario };
+  addRegistroAzucar(pacienteId: number, valorAzucar: number, comentario: string='', fechaToma: string = ''): Observable<RegistroAzucar> {
+    const registro: RegistroAzucar = { valorAzucar: valorAzucar, comentario: comentario, fechaToma: fechaToma };
     return this.http.post<RegistroAzucar>(`${this.baseUrl}/registros-azucar/paciente/${pacienteId}`, registro);
   }
 

@@ -19,6 +19,7 @@ export class HistoricoAzucarComponent implements OnInit, OnChanges {
   historico: RegistroAzucar[] = [];
   newValorAzucar: number | null = null;
   newComentario: string='';
+  newFechaToma: string | null = null;
 
   constructor(private pacienteService: PacienteService) { }
 
@@ -53,12 +54,13 @@ export class HistoricoAzucarComponent implements OnInit, OnChanges {
   }
 
   addRegistro(): void {
-    if (this.paciente && this.paciente.id && this.newValorAzucar !== null && this.newValorAzucar > 0) {
-      this.pacienteService.addRegistroAzucar(this.paciente.id, this.newValorAzucar, this.newComentario).subscribe(
+    if (this.paciente && this.paciente.id && this.newValorAzucar !== null && this.newValorAzucar > 0 && this.newFechaToma) {
+      this.pacienteService.addRegistroAzucar(this.paciente.id, this.newValorAzucar, this.newComentario, this.newFechaToma).subscribe(
         () => {
           console.log('Registro de azúcar añadido con éxito');
           this.newValorAzucar = null; // Limpia el input
           this.newComentario = '';
+          this.newFechaToma = null; // Limpia el campo después de añadir
           this.loadHistorico(this.paciente!.id!); // Recarga el historial
           this.registroAdded.emit(); // Notifica al padre
         },

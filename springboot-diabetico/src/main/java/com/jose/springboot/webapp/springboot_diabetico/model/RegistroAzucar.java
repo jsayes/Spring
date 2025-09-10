@@ -19,6 +19,7 @@ public class RegistroAzucar {
     private Double valorAzucar;
     private LocalDateTime fechaRegistro;
     private String comentario;
+    private LocalDateTime fechaToma;
 
     @ManyToOne(fetch = FetchType.LAZY) // Relación Muchos a Uno con Paciente
     @JoinColumn(name = "paciente_id") // Columna de la clave foránea en esta tabla

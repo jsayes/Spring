@@ -8,6 +8,10 @@
       <input type="number" id="newValorAzucar" [(ngModel)]="newValorAzucar" name="newValorAzucar" required>
     </div>
     <div class="form-group">
+      <label for="newComentario">Fecha de la toma:</label>
+      <input type="datetime-local" id="newFechaToma" [(ngModel)]="newFechaToma" name="newFechaToma" required>     
+    </div>
+    <div class="form-group">
       <label for="newComentario">Comentario (opcional):</label>
       <input type="text" id="newComentario" [(ngModel)]="newComentario" name="newComentario">
     </div>
@@ -20,7 +24,9 @@
         <tr>
           <th>ID Registro</th>
           <th>Valor Azúcar (mg/dL)</th>
-           <th>Comentario</th> <th>Fecha y Hora</th>
+           <th>Comentario</th> 
+           <th>Fecha de registro</th>
+           <th>Fecha de la toma</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -28,7 +34,11 @@
         <tr *ngFor="let registro of historico">
           <td>{{ registro.id }}</td>
           <td>{{ registro.valorAzucar }}</td>
-          <td>{{ registro.comentario || 'N/A' }}</td> <td>{{ registro.fechaRegistro | date:'medium' }}</td>
+          <td>{{ registro.comentario || 'N/A' }}</td> 
+          <td>{{ registro.fechaRegistro | date:'medium' }}</td>
+          <td>{{ registro.fechaToma | date:'medium' }}</td>
+        
+          
           <td>
             <button class="delete-button" (click)="deleteRegistro(registro.id)">Eliminar</button>
           </td>
