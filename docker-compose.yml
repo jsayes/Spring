@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database service
+  db:
+    image: postgres:16-alpine
+    container_name: diabetes-db
+    restart: always
+    environment:
+      POSTGRES_DB: diabetes_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345  # <-- Change this!
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  # Spring Boot backend service
+  backend:
+    build:
+      context: ./backend  # Path to your backend project folder
+      dockerfile: Dockerfile
+    container_name: diabetes-backend
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/diabetes_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 12345  # <-- Must match DB password
+    ports:
+      - "5281:5281"
+    depends_on:
+      - db  # Ensures the database starts first
+
+  # Angular frontend service
+  frontend:
+    build:
+      context: ./frontend  # Path to your frontend project folder
+      dockerfile: Dockerfile
+    container_name: diabetes-frontend
+    restart: always
+    ports:
+      - "4200:80"  # Maps host port 4200 to container port 80
+    depends_on:
+      - backend  # Frontend needs the backend to be running
+
+volumes:
+  db_data: {}
