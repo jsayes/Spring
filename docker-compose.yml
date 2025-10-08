@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   # PostgreSQL database service
@@ -18,7 +18,7 @@ services:
   # Spring Boot backend service
   backend:
     build:
-      context: ./backend  # Path to your backend project folder
+      context: ./springboot-diabetico  # Path to your backend project folder
       dockerfile: Dockerfile
     container_name: diabetes-backend
     restart: always
@@ -27,14 +27,14 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 12345  # <-- Must match DB password
     ports:
-      - "5281:5281"
+      - "8090:8090"
     depends_on:
       - db  # Ensures the database starts first
 
   # Angular frontend service
   frontend:
     build:
-      context: ./frontend  # Path to your frontend project folder
+      context: ./diabetes-frontend  # Path to your frontend project folder
       dockerfile: Dockerfile
     container_name: diabetes-frontend
     restart: always
