@@ -24,7 +24,7 @@ export interface RegistroAzucar {
 })
 export class PacienteService {
   
-  private baseUrl = 'http://172.16.197.58:8090/api'; // Base URL para ambos controladores
+  private baseUrl = 'http://backend:8090/api'; // Base URL para ambos controladores
 
   constructor(private http: HttpClient) { }
 
